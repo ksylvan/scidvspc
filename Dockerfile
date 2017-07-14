@@ -16,6 +16,6 @@ RUN if [ ! -d scid_vs_pc-4.18 ]; then tar xvzf scid_vs_pc-4.18.tgz; fi \
   && apt-get -y install make g++ tk-dev tcl-dev tk tcl stockfish \
   && ./configure && make install \
   && apt-get remove --purge -y make g++ \
-  && rm -rf /var/lib/apt/lists/* && cd / && rm -rf scid_vs_pc-4.18
+  && rm -rf /var/lib/apt/lists/* && cd /home/scid && rm -rf scid_vs_pc-4.18
 
 ENTRYPOINT ["/usr/local/bin/scid"]
