@@ -18,8 +18,11 @@ Mapping `$HOME` into the container will make
 the `~/.scidvspc/` directory and configuration files
 persist.
 
-On MacOS, if you wish to use this instead of the native `SCID vs Mac` port,
-you need to install `XQuartz` and `socat`. With `brew` installed, simply do this:
+## MacOS: Using this image instead of the native Mac App
+
+On MacOS, if you wish to run this image instead of the native
+`SCID vs Mac` port, you need to install `XQuartz` and `socat`.
+With `brew` installed, simply do this:
 
 ```
 brew cask install xquartz
