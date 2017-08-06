@@ -8,15 +8,20 @@ FROM debian:buster-slim
 
 LABEL maintainer "Kayvan Sylvan <kayvansylvan@gmail.com>"
 
-ADD https://downloads.sourceforge.net/project/scidvspc/source/scid_vs_pc-4.18.tgz /home/scid/
+ENV SCID_VERSION 4.18.1
+
+ADD https://downloads.sourceforge.net/project/scidvspc/source/scid_vs_pc-${SCID_VERSION}.tgz /home/scid/
 WORKDIR /home/scid
-RUN if [ ! -d scid_vs_pc-4.18 ]; then tar xvzf scid_vs_pc-4.18.tgz; fi \
-  && cd scid_vs_pc-4.18 \
+RUN if [ ! -d scid_vs_pc-${SCID_VERSION} ]; then tar xvzf scid_vs_pc-${SCID_VERSION}.tgz; fi \
+  && cd scid_vs_pc-${SCID_VERSION} \
+  && BUILD_PKGS="make g++ tk-dev tcl-dev" && RUNTIME_PKGS="tk tcl tcl-snack" \
+  && MISC_PKGS="inetutils-ping stockfish" \
   && apt-get update \
-  && apt-get -y install make g++ tk-dev tcl-dev tk tcl \
-    stockfish inetutils-ping \
+  && apt-get -y install ${RUNTIME_PKGS} ${MISC_PKGS} ${BUILD_PKGS} \
   && ./configure && make install \
-  && apt-get remove --purge -y make g++ \
-  && rm -rf /var/lib/apt/lists/* && cd /home/scid && rm -rf scid_vs_pc-4.18
+  && cp -r sounds /usr/local/share/scid/ \
+  && apt-get remove --purge -y $BUILD_PKGS \
+  && cd .. \
+  && rm -rf /var/lib/apt/lists/* scid_vs_pc-${SCID_VERSION}
 
 ENTRYPOINT ["/usr/local/bin/scid"]
