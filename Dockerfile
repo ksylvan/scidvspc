@@ -22,6 +22,6 @@ RUN if [ ! -d scid_vs_pc-${SCID_VERSION} ]; then tar xvzf scid_vs_pc-${SCID_VERS
   && cp -r sounds /usr/local/share/scid/ \
   && apt-get remove --purge -y $BUILD_PKGS \
   && cd .. \
-  && rm -rf /var/lib/apt/lists/* scid_vs_pc-${SCID_VERSION}
+  && rm -rf /var/lib/apt/lists/* scid_vs_pc-${SCID_VERSION}*
 
 ENTRYPOINT ["/usr/local/bin/scid"]
