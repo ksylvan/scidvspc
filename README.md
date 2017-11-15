@@ -11,8 +11,6 @@ docker run -it -u 1000:1000 --rm -e HOME \
   -v $XAUTHORITY:/tmp/xauth -v $HOME:$HOME \
   -v /tmp/.X11-unix:/tmp/.X11-unix kayvan/scidvspc
 ```
-The image includes the latest scidvspc and
-stockfish (at `/usr/games/stockfish`)
 
 Mapping `$HOME` into the container will make
 the `~/.scidvspc/` directory and configuration files
@@ -54,6 +52,35 @@ Now, `scid` should launch the `scidvspc` GUI. The `.scidvspc` directory
 will end up wherever you set `__scid_home_dir` and will not conflict with
 the native MacOS application.
 
+## Chess Engines
+
+In addition to the engines included with the `scidvspc` sources,
+this image includes the latest stockfish (at `/usr/games/stockfish`)
+
+Also included is an `ssh` client. This makes it possible
+to run the image and add any other `uci` chess engine running
+on the host to the Engine list available in `scidvspc`.
+
+On your Docker host, set up your `~/.ssh/authorized_keys` to
+include its own ssh key.
+
+Now, in the Tools->Analysis Engines menu, you can add
+any command by putting in the following info:
+
+```
+Command: /usr/bin/ssh
+Parameters: youruser@172.17.0.1 whatever command
+```
+
+This even includes running another container. For example,
+you can run tagged versions of the `kayvan/stockfish` image:
+
+```
+Command: /usr/bin/ssh
+Parameters: kayvan@172.17.0.1 docker run --rm -i kayvan/stockfish:151117
+```
+
 # Reference
 - http://scidvspc.sourceforge.net/
 - https://stockfishchess.org/
+- https://hub.docker.com/r/kayvan/stockfish/

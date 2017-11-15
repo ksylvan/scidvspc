@@ -15,7 +15,7 @@ WORKDIR /home/scid
 RUN if [ ! -d scid_vs_pc-${SCID_VERSION} ]; then tar xvzf scid_vs_pc-${SCID_VERSION}.tgz; fi \
   && cd scid_vs_pc-${SCID_VERSION} \
   && BUILD_PKGS="make g++ tk-dev tcl-dev" && RUNTIME_PKGS="tk tcl tcl-snack" \
-  && MISC_PKGS="inetutils-ping stockfish" \
+  && MISC_PKGS="inetutils-ping stockfish ssh" \
   && apt-get update \
   && apt-get -y install ${RUNTIME_PKGS} ${MISC_PKGS} ${BUILD_PKGS} \
   && ./configure && make install \
