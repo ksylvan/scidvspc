@@ -8,7 +8,7 @@ FROM debian:buster-slim
 
 LABEL maintainer "Kayvan Sylvan <kayvansylvan@gmail.com>"
 
-ENV SCID_VERSION 4.18.1
+ENV SCID_VERSION 4.19
 
 ADD https://downloads.sourceforge.net/project/scidvspc/source/scid_vs_pc-${SCID_VERSION}.tgz /home/scid/
 WORKDIR /home/scid
